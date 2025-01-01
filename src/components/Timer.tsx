@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Coffee } from 'lucide-react';
-import { TimeSelector } from './TimeSelector';
-import { TimerControls } from './TimerControls';
-import { formatTime } from '../utils/time';
+import React, { useState, useEffect } from "react";
+import { Coffee } from "lucide-react";
+import { TimeSelector } from "./TimeSelector";
+import { TimerControls } from "./TimerControls";
+import { formatTime } from "../utils/time";
+import { playTimerEndSound, playBreakEndSound } from "../utils/sound";
 
-type TimerState = 'focus' | 'break';
+type TimerState = "focus" | "break";
 
 export function Timer() {
   const [minutes, setMinutes] = useState(25);
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
-  const [timerState, setTimerState] = useState<TimerState>('focus');
+  const [timerState, setTimerState] = useState<TimerState>("focus");
   const [sessionsCompleted, setSessionsCompleted] = useState(0);
 
   useEffect(() => {
@@ -21,13 +22,15 @@ export function Timer() {
         if (seconds === 0) {
           if (minutes === 0) {
             setIsActive(false);
-            if (timerState === 'focus') {
-              setSessionsCompleted(prev => prev + 1);
-              setTimerState('break');
+            if (timerState === "focus") {
+              setSessionsCompleted((prev) => prev + 1);
+              setTimerState("break");
               setMinutes(5);
+              playTimerEndSound();
             } else {
-              setTimerState('focus');
+              setTimerState("focus");
               setMinutes(25);
+              playBreakEndSound();
             }
           } else {
             setMinutes(minutes - 1);
@@ -67,7 +70,7 @@ export function Timer() {
       <div className="text-6xl font-bold tracking-widest text-gray-800">
         {formatTime(minutes, seconds)}
       </div>
-      
+
       <TimerControls
         isActive={isActive}
         onToggle={toggleTimer}
@@ -75,7 +78,7 @@ export function Timer() {
       />
 
       <div className="flex items-center space-x-2 text-gray-600">
-        {timerState === 'focus' ? (
+        {timerState === "focus" ? (
           <div className="flex items-center">
             <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse mr-2" />
             Focus Time

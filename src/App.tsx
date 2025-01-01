@@ -1,6 +1,6 @@
-import React from 'react';
-import { Timer } from './components/Timer';
-import { Clock } from 'lucide-react';
+import React from "react";
+import { Timer } from "./components/Timer";
+import { Clock } from "lucide-react";
 
 function App() {
   return (
@@ -11,11 +11,13 @@ function App() {
             <Clock className="text-indigo-600 mr-2" size={28} />
             <h1 className="text-2xl font-bold text-gray-800">Focus Time</h1>
           </div>
-          
+
           <Timer />
 
           <div className="mt-8 pt-8 border-t border-gray-100">
-            <h2 className="text-lg font-semibold text-gray-700 mb-2">Tips for Staying Focused</h2>
+            <h2 className="text-lg font-semibold text-gray-700 mb-2">
+              Tips for Staying Focused
+            </h2>
             <ul className="text-sm text-gray-600 space-y-2">
               <li>• Find a quiet workspace</li>
               <li>• Put your phone on silent</li>
